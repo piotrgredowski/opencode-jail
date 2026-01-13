@@ -1,19 +1,15 @@
-FROM ubuntu:24.04
+FROM node:22-bookworm
 
-# 1. Install dependencies and Firejail
 RUN apt-get update && apt-get install -y \
-    firejail \
-    curl \
-    ca-certificates \
-    iputils-ping \
+    git curl wget vim dnsutils \
+    iptables iproute2 sudo \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. Install OpenCode (adjusting to their official install script)
-RUN curl -fsSL https://opencode.ai/install | bash
+RUN useradd -m -s /bin/bash -u 1000 opencode-user
+RUN npm install -g opencode-ai@latest
 
-# 3. Create a non-root user (Firejail prefers this)
-RUN useradd -m opencode-user
-USER opencode-user
-WORKDIR /home/opencode-user
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT ["firejail"]
+WORKDIR /workspace
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

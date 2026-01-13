@@ -1,0 +1,18 @@
+# OpenCode / Anthropic APIs
+api.anthropic.com
+claude.ai
+statsig.anthropic.com
+sentry.io
+
+# OpenAI (if using OpenAI models)
+api.openai.com
+
+# Google (if using Gemini models)
+generativelanguage.googleapis.com
+
+# Package registries
+registry.npmjs.org
+github.com
+objects.githubusercontent.com
+
+# Add your custom domains below
